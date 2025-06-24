@@ -1,0 +1,12 @@
+packageName: com.example.demo
+entities:
+  - name: User
+    fields:
+      - name: id
+        type: Long
+      - name: name
+        type: String
+      - name: email
+        type: String
+      - name: active
+        type: Boolean 
