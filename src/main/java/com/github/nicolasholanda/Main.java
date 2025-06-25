@@ -1,5 +1,7 @@
 package com.github.nicolasholanda;
 
+import com.github.nicolasholanda.generator.ProjectGenerator;
+import com.github.nicolasholanda.model.Project;
 import com.github.nicolasholanda.parser.ProjectFileParser;
 
 public class Main {
@@ -11,7 +13,8 @@ public class Main {
 
         try {
             String yamlFile = args[0];
-            ProjectFileParser.parse(yamlFile);
+            Project project = ProjectFileParser.parse(yamlFile);
+            ProjectGenerator.generate(project);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             System.exit(1);
