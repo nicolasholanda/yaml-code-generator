@@ -178,4 +178,4 @@ public
 # Temporary folders
 tmp/
 temp/ 
-**/generated/**
+output/

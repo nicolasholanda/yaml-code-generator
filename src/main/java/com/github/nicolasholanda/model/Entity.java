@@ -7,5 +7,7 @@ import lombok.Data;
 @Data
 public class Entity {
     private String name;
+    private String accessModifier;
+    private String packageName;
     private List<EntityField> fields;
 }

@@ -10,8 +10,16 @@ import org.yaml.snakeyaml.LoaderOptions;
 import com.github.nicolasholanda.model.Entity;
 import com.github.nicolasholanda.model.Project;
 
+/**
+ * ProjectFileParser is a class that parses a project file and returns a Project object.
+ */
 public class ProjectFileParser {
 
+    /**
+     * Parse a project file and return a Project object.
+     * @param yamlFile The path to the project file.
+     * @return Project The project object.
+     */
     public static Project parse(String yamlFile) {
         try {
             if (!isProjectFile(yamlFile)) {
@@ -27,6 +35,11 @@ public class ProjectFileParser {
                 System.exit(1);
             }
 
+            if (project.getPackageName() == null) {
+                System.out.println("Error: Project file does not contain a package name");
+                System.exit(1);
+            }
+
             if (project.getEntities() == null || project.getEntities().isEmpty()) {
                 System.out.println("Error: Project file does not contain any entities");
                 System.exit(1);
@@ -34,6 +47,7 @@ public class ProjectFileParser {
 
             System.out.println("Entities Found: " + project.getEntities().size());
             for (Entity entity : project.getEntities()) {
+                entity.setPackageName(project.getPackageName());
                 System.out.println(entity.getName());
             }
 
@@ -45,6 +59,11 @@ public class ProjectFileParser {
         }
     }
 
+    /**
+     * Check if the file is a project file.
+     * @param yamlFile The path to the project file.
+     * @return boolean True if the file is a project file, false otherwise.
+    */
     private static boolean isProjectFile(String yamlFile) {
         return yamlFile.endsWith(".yaml") || yamlFile.endsWith(".yml");
     }

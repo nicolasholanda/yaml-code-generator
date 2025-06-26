@@ -16,7 +16,8 @@ public class Main {
             Project project = ProjectFileParser.parse(yamlFile);
             ProjectGenerator.generate(project);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error while generating project: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
     }

@@ -4,9 +4,13 @@ entities:
     fields:
       - name: id
         type: Long
+        accessModifier: private
       - name: name
         type: String
+        accessModifier: private
       - name: email
         type: String
+        accessModifier: private
       - name: active
-        type: Boolean 
+        type: Boolean
+        accessModifier: private
