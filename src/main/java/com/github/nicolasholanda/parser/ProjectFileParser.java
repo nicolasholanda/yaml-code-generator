@@ -20,7 +20,7 @@ public class ProjectFileParser {
      * @param yamlFile The path to the project file.
      * @return Project The project object.
      */
-    public static Project parse(String yamlFile) {
+    public Project parse(String yamlFile) {
         try {
             if (!isProjectFile(yamlFile)) {
                 System.out.println("File is not a project file");
@@ -64,7 +64,7 @@ public class ProjectFileParser {
      * @param yamlFile The path to the project file.
      * @return boolean True if the file is a project file, false otherwise.
     */
-    private static boolean isProjectFile(String yamlFile) {
+    private boolean isProjectFile(String yamlFile) {
         return yamlFile.endsWith(".yaml") || yamlFile.endsWith(".yml");
     }
 }

@@ -17,7 +17,7 @@ public class FieldGenerator {
      * @param field The field to generate a field spec for.
      * @return FieldSpec The field spec.
      */
-    public static FieldSpec generate(EntityField field) {
+    public FieldSpec generate(EntityField field) {
         try {
             var classFullName = getClassFullName(field);
             var classType = Class.forName(classFullName);
@@ -37,7 +37,7 @@ public class FieldGenerator {
      * @param field The field to get the full class name for.
      * @return String The full class name.
      */
-    private static String getClassFullName(EntityField field) {
+    private String getClassFullName(EntityField field) {
         return field.getType().contains(".") ? field.getType() : DEFAULT_PACKAGE + field.getType();
     }
 }
