@@ -2,6 +2,7 @@ package com.github.nicolasholanda.generator;
 
 import com.github.nicolasholanda.model.Entity;
 import com.github.nicolasholanda.model.EntityField;
+import com.github.nicolasholanda.util.PackageConstants;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
@@ -33,7 +34,8 @@ public class EntityGenerator {
             try {
                 var fieldSpec = fieldGenerator.generate(field);
                 classBuilder.addField(fieldSpec);
-                var javaFile = JavaFile.builder(entity.getPackageName(), classBuilder.build()).build();
+                String modelPackage = entity.getPackageName() + "." + PackageConstants.MODEL;
+                var javaFile = JavaFile.builder(modelPackage, classBuilder.build()).build();
                 javaFile.writeTo(Paths.get(OUTPUT_PATH));
             } catch (Exception e) {
                 throw new RuntimeException("Error generating entity: " + entity.getName(), e);

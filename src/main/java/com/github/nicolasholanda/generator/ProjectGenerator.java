@@ -8,9 +8,11 @@ import com.github.nicolasholanda.model.Project;
  */
 public class ProjectGenerator {
     private final EntityGenerator entityGenerator;
+    private final RepositoryGenerator repositoryGenerator;
 
-    public ProjectGenerator(EntityGenerator entityGenerator) {
+    public ProjectGenerator(EntityGenerator entityGenerator, RepositoryGenerator repositoryGenerator) {
         this.entityGenerator = entityGenerator;
+        this.repositoryGenerator = repositoryGenerator;
     }
 
     /**
@@ -20,6 +22,7 @@ public class ProjectGenerator {
     public void generate(Project project) {
         for (Entity entity : project.getEntities()) {
             entityGenerator.generate(entity);
+            repositoryGenerator.generate(entity);
         }
     }
 }

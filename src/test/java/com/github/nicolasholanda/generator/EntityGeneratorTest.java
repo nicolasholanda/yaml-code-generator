@@ -2,6 +2,8 @@ package com.github.nicolasholanda.generator;
 
 import com.github.nicolasholanda.model.Entity;
 import com.github.nicolasholanda.model.EntityField;
+import com.github.nicolasholanda.util.PackageConstants;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EntityGeneratorTest {
-    private static final String OUTPUT_PATH = "output/src/main/java/com/example";
+    private static final String OUTPUT_PATH = "output/src/main/java/com/example/" + PackageConstants.MODEL;
 
     @BeforeEach
     void cleanOutputDir() throws Exception {

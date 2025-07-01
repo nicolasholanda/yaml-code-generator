@@ -3,6 +3,8 @@ package com.github.nicolasholanda.generator;
 import com.github.nicolasholanda.model.Entity;
 import com.github.nicolasholanda.model.EntityField;
 import com.github.nicolasholanda.model.Project;
+import com.github.nicolasholanda.util.PackageConstants;
+
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -13,7 +15,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectGeneratorTest {
-    private static final String OUTPUT_PATH = "output/src/main/java/com/example";
+    private static final String MODEL_PATH = "output/src/main/java/com/example/" + PackageConstants.MODEL;
+    private static final String REPOSITORY_PATH = "output/src/main/java/com/example/" + PackageConstants.REPOSITORY;
 
     @Test
     void testGenerateProjectWithMultipleEntities() throws Exception {
@@ -40,12 +43,17 @@ public class ProjectGeneratorTest {
         project.setEntities(entities);
         FieldGenerator fieldGenerator = new FieldGenerator();
         EntityGenerator entityGenerator = new EntityGenerator(fieldGenerator);
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator);
+        RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator);
         projectGenerator.generate(project);
-        Path userFile = Path.of(OUTPUT_PATH, "User.java");
-        Path productFile = Path.of(OUTPUT_PATH, "Product.java");
-        assertTrue(Files.exists(userFile));
-        assertTrue(Files.exists(productFile));
+        Path userEntityFile = Path.of(MODEL_PATH, "User.java");
+        Path productEntityFile = Path.of(MODEL_PATH, "Product.java");
+        Path userRepositoryFile = Path.of(REPOSITORY_PATH, "UserRepository.java");
+        Path productRepositoryFile = Path.of(REPOSITORY_PATH, "ProductRepository.java");
+        assertTrue(Files.exists(userEntityFile));
+        assertTrue(Files.exists(productEntityFile));
+        assertTrue(Files.exists(userRepositoryFile));
+        assertTrue(Files.exists(productRepositoryFile));
     }
 
     @Test
@@ -54,7 +62,8 @@ public class ProjectGeneratorTest {
         project.setEntities(new ArrayList<>());
         FieldGenerator fieldGenerator = new FieldGenerator();
         EntityGenerator entityGenerator = new EntityGenerator(fieldGenerator);
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator);
+        RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator);
         assertDoesNotThrow(() -> projectGenerator.generate(project));
     }
 
@@ -73,7 +82,8 @@ public class ProjectGeneratorTest {
                 throw new RuntimeException("Simulated error");
             }
         };
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator);
+        RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator);
         RuntimeException exception = assertThrows(RuntimeException.class, () -> projectGenerator.generate(project));
         assertTrue(exception.getMessage().contains("Simulated error"));
     }
