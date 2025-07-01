@@ -4,6 +4,7 @@ import com.github.nicolasholanda.generator.ProjectGenerator;
 import com.github.nicolasholanda.generator.EntityGenerator;
 import com.github.nicolasholanda.generator.FieldGenerator;
 import com.github.nicolasholanda.generator.RepositoryGenerator;
+import com.github.nicolasholanda.generator.ServiceGenerator;
 import com.github.nicolasholanda.model.Project;
 import com.github.nicolasholanda.parser.ProjectFileParser;
 
@@ -21,7 +22,8 @@ public class Main {
             FieldGenerator fieldGenerator = new FieldGenerator();
             EntityGenerator entityGenerator = new EntityGenerator(fieldGenerator);
             RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
-            ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator);
+            ServiceGenerator serviceGenerator = new ServiceGenerator();
+            ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator);
             projectGenerator.generate(project);
         } catch (Exception e) {
             System.out.println("Error while generating project: " + e.getMessage());

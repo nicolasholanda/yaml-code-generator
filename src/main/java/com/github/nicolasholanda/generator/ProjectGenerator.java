@@ -9,10 +9,12 @@ import com.github.nicolasholanda.model.Project;
 public class ProjectGenerator {
     private final EntityGenerator entityGenerator;
     private final RepositoryGenerator repositoryGenerator;
+    private final ServiceGenerator serviceGenerator;
 
-    public ProjectGenerator(EntityGenerator entityGenerator, RepositoryGenerator repositoryGenerator) {
+    public ProjectGenerator(EntityGenerator entityGenerator, RepositoryGenerator repositoryGenerator, ServiceGenerator serviceGenerator) {
         this.entityGenerator = entityGenerator;
         this.repositoryGenerator = repositoryGenerator;
+        this.serviceGenerator = serviceGenerator;
     }
 
     /**
@@ -23,6 +25,7 @@ public class ProjectGenerator {
         for (Entity entity : project.getEntities()) {
             entityGenerator.generate(entity);
             repositoryGenerator.generate(entity);
+            serviceGenerator.generate(entity);
         }
     }
 }
