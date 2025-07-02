@@ -18,6 +18,7 @@ public class ProjectGeneratorTest {
     private static final String MODEL_PATH = "output/src/main/java/com/example/" + PackageConstants.MODEL;
     private static final String REPOSITORY_PATH = "output/src/main/java/com/example/" + PackageConstants.REPOSITORY;
     private static final String SERVICE_PATH = "output/src/main/java/com/example/" + PackageConstants.SERVICE;
+    private static final String CONTROLLER_PATH = "output/src/main/java/com/example/" + PackageConstants.CONTROLLER;
 
     @Test
     void testGenerateProjectWithMultipleEntities() throws Exception {
@@ -46,7 +47,8 @@ public class ProjectGeneratorTest {
         EntityGenerator entityGenerator = new EntityGenerator(fieldGenerator);
         RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
         ServiceGenerator serviceGenerator = new ServiceGenerator();
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator);
+        ControllerGenerator controllerGenerator = new ControllerGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator, controllerGenerator);
         projectGenerator.generate(project);
         Path userEntityFile = Path.of(MODEL_PATH, "User.java");
         Path productEntityFile = Path.of(MODEL_PATH, "Product.java");
@@ -54,12 +56,16 @@ public class ProjectGeneratorTest {
         Path productRepositoryFile = Path.of(REPOSITORY_PATH, "ProductRepository.java");
         Path userServiceFile = Path.of(SERVICE_PATH, "UserService.java");
         Path productServiceFile = Path.of(SERVICE_PATH, "ProductService.java");
+        Path userControllerFile = Path.of(CONTROLLER_PATH, "UserController.java");
+        Path productControllerFile = Path.of(CONTROLLER_PATH, "ProductController.java");
         assertTrue(Files.exists(userEntityFile));
         assertTrue(Files.exists(productEntityFile));
         assertTrue(Files.exists(userRepositoryFile));
         assertTrue(Files.exists(productRepositoryFile));
         assertTrue(Files.exists(userServiceFile));
         assertTrue(Files.exists(productServiceFile));
+        assertTrue(Files.exists(userControllerFile));
+        assertTrue(Files.exists(productControllerFile));
     }
 
     @Test
@@ -70,7 +76,8 @@ public class ProjectGeneratorTest {
         EntityGenerator entityGenerator = new EntityGenerator(fieldGenerator);
         RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
         ServiceGenerator serviceGenerator = new ServiceGenerator();
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator);
+        ControllerGenerator controllerGenerator = new ControllerGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator, controllerGenerator);
         assertDoesNotThrow(() -> projectGenerator.generate(project));
     }
 
@@ -91,7 +98,8 @@ public class ProjectGeneratorTest {
         };
         RepositoryGenerator repositoryGenerator = new RepositoryGenerator();
         ServiceGenerator serviceGenerator = new ServiceGenerator();
-        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator);
+        ControllerGenerator controllerGenerator = new ControllerGenerator();
+        ProjectGenerator projectGenerator = new ProjectGenerator(entityGenerator, repositoryGenerator, serviceGenerator, controllerGenerator);
         RuntimeException exception = assertThrows(RuntimeException.class, () -> projectGenerator.generate(project));
         assertTrue(exception.getMessage().contains("Simulated error"));
     }

@@ -10,11 +10,16 @@ public class ProjectGenerator {
     private final EntityGenerator entityGenerator;
     private final RepositoryGenerator repositoryGenerator;
     private final ServiceGenerator serviceGenerator;
+    private final ControllerGenerator controllerGenerator;
 
-    public ProjectGenerator(EntityGenerator entityGenerator, RepositoryGenerator repositoryGenerator, ServiceGenerator serviceGenerator) {
+    public ProjectGenerator(EntityGenerator entityGenerator, 
+                            RepositoryGenerator repositoryGenerator, 
+                            ServiceGenerator serviceGenerator, 
+                            ControllerGenerator controllerGenerator) {
         this.entityGenerator = entityGenerator;
         this.repositoryGenerator = repositoryGenerator;
         this.serviceGenerator = serviceGenerator;
+        this.controllerGenerator = controllerGenerator;
     }
 
     /**
@@ -26,6 +31,7 @@ public class ProjectGenerator {
             entityGenerator.generate(entity);
             repositoryGenerator.generate(entity);
             serviceGenerator.generate(entity);
+            controllerGenerator.generate(entity);
         }
     }
 }
